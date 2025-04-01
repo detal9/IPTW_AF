@@ -6,21 +6,21 @@ require(survival);
 
 #### Description
 # This function estimates the fraction of the cases of a given outcome in a population
-# occuring within a certain period of time that is attritributable to a given exposure (A)
+# occurring within a certain period of time that is attributable to a given exposure (A)
 # when the outcome is a time-to-event variable with possible right-censoring.  
 #
 # The function uses an inverse probability of treatment (or exposure) weighting estimator.
-# This estimator is detailed in ****REF****. 
+# This estimator is detailed in https://arxiv.org/abs/2212.09538
 # The estimator assumes noninformative censoring.
 
 
 #### Arguments
-# dat         : (optionnal) A dataframe containing the variables fu.time, event, A and L.
+# dat         : (optional) A dataframe containing the variables fu.time, event, A and L.
 # fu.time     : Either the name of the follow-up time variable as a character (if argument
 #               dat is used) or a numeric variable containing the follow-up times.
 # event       : Either the name of the event variable as a character (if argument
 #               dat is used) or a numeric variable containing the event indicator.
-#               event = 1 means that the follow-up ended with the event occurence,
+#               event = 1 means that the follow-up ended with the event occurrence,
 #               event = 0 means that the time-to-event is right-censored at the
 #               end of the follow-up.
 # A           : Either the name of the exposure/treatment variable as a character 
@@ -35,7 +35,7 @@ require(survival);
 #               creating variables for these terms beforehand (****see example X****).
 # times       : A numeric variable of length 1 indicating the follow-up time
 #               at which to estimate the population attributable fraction
-# Aref        : (optionnnal) The reference value for the exposure. If not provided, 0
+# Aref        : (optional) The reference value for the exposure. If not provided, 0
 #               is assumed to be the reference value.
 # R           : (optional) Number of bootstrap replicates for computing confidence
 #               intervals. The default is 0 (no confidence intervals are computed).
@@ -113,7 +113,7 @@ AF.iptw = function(dat = NULL, fu.time, event, A, L, times, Aref = 0, R = 0, tru
   if(!is.numeric(times)) stop("times must be a numeric of length 1 or more");
   if(times <= 0) stop("times must be > 0");
   if(!is.numeric(R)) stop("R must be numeric");
-  if(length(time) != 1) stop("times must be of length 1");
+  if(length(times) != 1) stop("times must be of length 1");
   if(R < 0) stop("R must be >= 0");
   if(R %% 1 != 0) warning("R was not an integer and has been rounded up"); R = ceiling(R);
   if(!is.numeric(trunc)) stop("trunc should be numeric");
